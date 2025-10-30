@@ -18,7 +18,7 @@ Imagine a logging pipeline of HTTP records, data collected from edge
 servers and sent to an Apache Kafka topic called `http_log` as messages. Your task consumes
 those messages, performs Cap'N Proto decoding, transforms the data as needed, and inserts them
 to a ClickHouse table. The Cap'N Proto schema is
-[http_log.capnp](http_log.capnp).
+[http_log.capnp](capnp/http_log.capnp).
 
 
 Because of the GDPR regulations you have to anonymize the client IP. For

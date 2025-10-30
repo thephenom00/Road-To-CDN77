@@ -1,4 +1,7 @@
 @0xf42cd342ff520eca;
+using Java = import "java.capnp";
+$Java.package("com.road.to.cdn.anonymizer.capnp");
+$Java.outerClassname("HttpLog");
 
 struct HttpLogRecord {
   timestampEpochMilli @0 :UInt64;

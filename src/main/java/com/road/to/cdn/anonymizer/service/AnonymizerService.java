@@ -78,7 +78,6 @@ public class AnonymizerService {
       if (batch.isEmpty()) {
         return;
       }
-
       clickHouseService.saveBatchToDatabase(batch);
     } catch (Exception e) {
       list.addAll(batch);

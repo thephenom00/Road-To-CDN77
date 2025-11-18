@@ -75,15 +75,6 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-jdbc</artifactId>
     </dependency>
-<!--    <dependency>-->
-<!--      <groupId>org.flywaydb</groupId>-->
-<!--      <artifactId>flyway-core</artifactId>-->
-<!--    </dependency>-->
-<!--    <dependency>-->
-<!--      <groupId>org.flywaydb</groupId>-->
-<!--      <artifactId>flyway-database-clickhouse</artifactId>-->
-<!--      <version>10.16.3</version>-->
-<!--    </dependency>-->
   </dependencies>
 
 	<build>

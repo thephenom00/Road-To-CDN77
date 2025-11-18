@@ -1,4 +1,32 @@
 # README.md
+## Oprava chyb po interview 12.11.
+### Manuální commit offsetů
+Prvně bylo nutné v konfiguračním souboru `application.properties` vypnout defaultní auto-commitování Kafky a nastavit potvrzování commitů ručně.
+```
+spring.kafka.consumer.enable-auto-commit=false
+spring.kafka.listener.ack-mode=MANUAL_IMMEDIATE
+```
+
+Pro commitování ručně, bylo třeba začít ukládat kromě records samotných i jejich Acknowledgment. V případě, že se podaří celý batch úspěšně uložit do databáze, každý jeden commit potvrdíme.
+
+```
+batch.stream().forEach(r->r.ack().acknowledge());
+```
+
+### Handlování Graceful Shutdown
+Vytvořil jsem vlastní class `KafkaConsumerLifecycleManager`, která implementuje interface `SmartLifecycle`, jelikož Spring Boot při každém graceful shutdownu zavolá metodu `stop()` na všech beanech, které implementují tento interface. Velmi jednoduše se v této `stop()` metodě zavolá `anonymizerService.saveToDatabase()` a před ukončením se aplikace pokusí uložit všechny nasbírané records.
+
+Pokud uložení do databáze selže, offset se neaktualizuje a při dalším spuštění je přečteme z Kafky znovu a zpracování se zopakuje.
+
+```
+@Override
+public void stop() {
+  anonymizerService.saveToDatabase();
+  isRunning = false;
+}
+```
+
+
 ## Obsah
 - [Úvod](#úvod)  
 - [Cap'n Proto dekódování](#capn-proto-dekódování)  
